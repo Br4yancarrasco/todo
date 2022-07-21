@@ -1,0 +1,72 @@
+CREATE TABLE Datos_personales(
+Rut_trabajador VARCHAR(12) NOT NULL PRIMARY KEY,
+Nombre VARCHAR(50),
+Clave INT(4),
+ApellidoMat VARCHAR(50),
+ApellidoPat VARCHAR(50),
+Sexo VARCHAR(15),
+Direccion VARCHAR(50),
+Telefono INT(9)
+);
+SELECT * FROM Datos_personales
+
+UPDATE Datos_personales
+SET Nombre = 'Alfred', Clave= 9876, ApellidoMat= 'Castro', ApellidoPat= 'Jara', Sexo= 'Femenino', Direccion= 'Talcahuano', Telefono= 954782321
+WHERE Rut_trabajador = '21.125.102-6';
+
+DELETE FROM Datos_personales WHERE Nombre='Camilo';
+INSERT INTO Datos_personales VALUES ('21.125.102-6','Camilo','1245','Fernandez','Hernandez','Masculino','Concepcion','957453877')
+SELECT * FROM datos_personales
+select COUNT('21.125.102-6') from Datos_personales where Rut_trabajador = '21.125.102-6'
+
+SELECT Rut_trabajador, Nombre, Sexo FROM datos_personales
+SELECT Cargo from Datos_laborales 
+
+SELECT * FROM Datos_personales
+
+CREATE TABLE Datos_laborales(
+Cargo VARCHAR(50) NOT NULL PRIMARY KEY,
+Rut_trabajador VARCHAR(12),
+FechaIngreso DATE,
+AreaTrabajo VARCHAR(50),
+Departamento VARCHAR(50)
+);
+
+INSERT INTO Datos_laborales VALUES ('Jefe','21.125.102-6','2008-11-11','Finanzas','Jefatura')
+SELECT * FROM datos_laborales
+
+SELECT *
+FROM datos_personales DP
+JOIN Datos_laborales D
+ON DP.Rut_trabajador = D.Rut_trabajador
+
+ALTER TABLE Datos_laborales ADD CONSTRAINT fk_Datos_personales FOREIGN KEY(Rut_trabajador) REFERENCES Datos_personales(Rut_trabajador); 
+
+CREATE TABLE Contacto_emergencia(
+NombreContacto VARCHAR(50),
+Relacion VARCHAR(50),
+Rut_trabajador VARCHAR(12),
+TelefonoContacto INT(9) NOT NULL PRIMARY KEY 
+);
+
+SELECT * FROM contacto_emergencia
+insert into contacto_emergencia values('Alexander','Hermano','21.125.102-6',954789811)
+
+ALTER TABLE Contacto_emergencia ADD CONSTRAINT fk_trabajador FOREIGN KEY(Rut_trabajador) REFERENCES Datos_personales(Rut_trabajador); 
+
+CREATE TABLE Cargas_familiares(
+NombreCarga VARCHAR(50),
+Rut_Carga VARCHAR(12) NOT NULL PRIMARY KEY,
+Rut_trabajador VARCHAR(12),
+Parentesco VARCHAR(50),
+Sexo VARCHAR(50)
+)
+
+DELETE FROM Cargas_familiares WHERE Rut_trabajador='21.125.102-6'  and Rut_Carga = '26.111.548-5';
+SELECT * FROM contacto_emergencia
+
+
+SELECT * FROM Cargas_familiares
+insert into Cargas_familiares values ('Cristobal','26.111.548-5','21.125.102-6','Hijo','Masculino')
+
+ALTER TABLE Cargas_familiares ADD CONSTRAINT fk_RutTrabajador FOREIGN KEY(Rut_trabajador) REFERENCES Datos_personales(Rut_trabajador); 
